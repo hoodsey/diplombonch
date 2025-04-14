@@ -1,8 +1,10 @@
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'timer_model.dart';
@@ -34,6 +36,8 @@ class _TimerWidgetState extends State<TimerWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TimerModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -85,8 +89,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 291.77,
-                        height: 291.77,
+                        width: 338.58,
+                        height: 338.58,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
                           boxShadow: [
@@ -110,7 +114,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: CircularPercentIndicator(
-                                percent: 0.8,
+                                percent: _model.timerMilliseconds.toDouble(),
                                 radius: 140.0,
                                 lineWidth: 280.0,
                                 animation: true,
@@ -132,42 +136,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                                 ),
                               ),
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Сессия Pomodoro',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              ].divide(SizedBox(height: 8.0)),
-                            ),
                             Align(
-                              alignment: AlignmentDirectional(-0.02, -0.05),
-                              child: Text(
-                                '25:00',
-                                style: FlutterFlowTheme.of(context)
-                                    .displaySmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(-0.03, 0.18),
+                              alignment: AlignmentDirectional(-0.03, 0.62),
                               child: Text(
                                 'Осталось',
                                 style: FlutterFlowTheme.of(context)
@@ -178,6 +148,30 @@ class _TimerWidgetState extends State<TimerWidget> {
                                           .secondaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(-0.04, 0.44),
+                              child: FlutterFlowTimer(
+                                initialTime: _model.timerInitialTimeMs,
+                                getDisplayTime: (value) =>
+                                    StopWatchTimer.getDisplayTime(value,
+                                        milliSecond: false),
+                                controller: _model.timerController,
+                                updateStateInterval:
+                                    Duration(milliseconds: 1000),
+                                onChanged: (value, displayTime, shouldUpdate) {
+                                  _model.timerMilliseconds = value;
+                                  _model.timerValue = displayTime;
+                                  if (shouldUpdate) safeSetState(() {});
+                                },
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .override(
+                                      fontFamily: 'Inter Tight',
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                             ),
@@ -210,8 +204,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                                   color: FlutterFlowTheme.of(context).primary,
                                   size: 30.0,
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
+                                onPressed: () async {
+                                  _model.timerController.onResetTimer();
                                 },
                               ),
                             ),
@@ -229,8 +223,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                                   color: FlutterFlowTheme.of(context).secondary,
                                   size: 40.0,
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
+                                onPressed: () async {
+                                  _model.timerController.onStartTimer();
                                 },
                               ),
                             ),
@@ -254,8 +248,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                                   size: 30.0,
                                 ),
                                 showLoadingIndicator: true,
-                                onPressed: () {
-                                  print('IconButton pressed ...');
+                                onPressed: () async {
+                                  _model.timerController.onStopTimer();
                                 },
                               ),
                             ),

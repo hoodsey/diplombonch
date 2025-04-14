@@ -88,82 +88,90 @@ class _TimerWidgetState extends State<TimerWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 338.58,
-                        height: 338.58,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 4.0,
-                              color: Color(0x33000000),
-                              offset: Offset(
-                                0.0,
-                                2.0,
-                              ),
-                            )
-                          ],
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent4,
-                            width: 8.0,
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Container(
+                          width: 338.58,
+                          height: 338.58,
+                          decoration: BoxDecoration(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 4.0,
+                                color: Color(0x33000000),
+                                offset: Offset(
+                                  0.0,
+                                  2.0,
+                                ),
+                              )
+                            ],
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).accent4,
+                              width: 8.0,
+                            ),
                           ),
-                        ),
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: CircularPercentIndicator(
-                                percent: 0.8,
-                                radius: 140.0,
-                                lineWidth: 280.0,
-                                animation: true,
-                                animateFromLastPercent: true,
-                                progressColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                backgroundColor: Color(0x15000000),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: CircularPercentIndicator(
+                                    percent: 0.8,
+                                    radius: 140.0,
+                                    lineWidth: 280.0,
+                                    animation: true,
+                                    animateFromLastPercent: true,
+                                    progressColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    backgroundColor: Color(0x15000000),
+                                  ),
+                                ),
                               ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(-0.03, 0.62),
-                              child: Text(
-                                'Осталось',
-                                style: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                              Align(
+                                alignment: AlignmentDirectional(-0.03, 0.62),
+                                child: Text(
+                                  'Осталось',
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
                               ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(-0.04, 0.44),
-                              child: FlutterFlowTimer(
-                                initialTime: _model.timerInitialTimeMs,
-                                getDisplayTime: (value) =>
-                                    StopWatchTimer.getDisplayTime(value,
-                                        milliSecond: false),
-                                controller: _model.timerController,
-                                updateStateInterval:
-                                    Duration(milliseconds: 1000),
-                                onChanged: (value, displayTime, shouldUpdate) {
-                                  _model.timerMilliseconds = value;
-                                  _model.timerValue = displayTime;
-                                  if (shouldUpdate) safeSetState(() {});
-                                },
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineSmall
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      letterSpacing: 0.0,
-                                    ),
+                              Align(
+                                alignment: AlignmentDirectional(-0.04, 0.44),
+                                child: FlutterFlowTimer(
+                                  initialTime: _model.timerInitialTimeMs,
+                                  getDisplayTime: (value) =>
+                                      StopWatchTimer.getDisplayTime(value,
+                                          milliSecond: false),
+                                  controller: _model.timerController,
+                                  updateStateInterval:
+                                      Duration(milliseconds: 1000),
+                                  onChanged:
+                                      (value, displayTime, shouldUpdate) {
+                                    _model.timerMilliseconds = value;
+                                    _model.timerValue = displayTime;
+                                    if (shouldUpdate) safeSetState(() {});
+                                  },
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       Padding(

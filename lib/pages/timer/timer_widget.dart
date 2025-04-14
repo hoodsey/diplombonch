@@ -114,7 +114,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: CircularPercentIndicator(
-                                percent: _model.timerMilliseconds.toDouble(),
+                                percent: 0.8,
                                 radius: 140.0,
                                 lineWidth: 280.0,
                                 animation: true,
@@ -122,18 +122,6 @@ class _TimerWidgetState extends State<TimerWidget> {
                                 progressColor:
                                     FlutterFlowTheme.of(context).primary,
                                 backgroundColor: Color(0x15000000),
-                                center: Text(
-                                  '25:00',
-                                  style: FlutterFlowTheme.of(context)
-                                      .displayMedium
-                                      .override(
-                                        fontFamily: 'Inter Tight',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
                               ),
                             ),
                             Align(

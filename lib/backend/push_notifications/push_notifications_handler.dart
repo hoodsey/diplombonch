@@ -117,6 +117,8 @@ final parametersBuilderMap =
   'login': ParameterData.none(),
   'timer': ParameterData.none(),
   'tasks': ParameterData.none(),
+  'habits': ParameterData.none(),
+  'analitiks': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

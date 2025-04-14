@@ -1,3 +1,5 @@
+import '/backend/schema/enums/enums.dart';
+import '/components/tasks_edit_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -46,38 +48,56 @@ class _TasksWidgetState extends State<TasksWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          title: Text(
-            'Список задач',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Inter Tight',
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w600,
-                ),
+          title: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Text(
+              'Задачи',
+              textAlign: TextAlign.center,
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Inter Tight',
+                    color: Colors.white,
+                    fontSize: 22.0,
+                    letterSpacing: 0.0,
+                  ),
+            ),
           ),
           actions: [
-            Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                child: FlutterFlowIconButton(
-                  borderRadius: 40.0,
-                  buttonSize: 40.0,
-                  icon: Icon(
-                    Icons.add_circle_outline,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 24.0,
-                  ),
-                  onPressed: () {
-                    print('IconButton pressed ...');
-                  },
-                ),
+            FlutterFlowIconButton(
+              borderRadius: 8.0,
+              buttonSize: 40.0,
+              fillColor: FlutterFlowTheme.of(context).primary,
+              icon: Icon(
+                Icons.add_task,
+                color: FlutterFlowTheme.of(context).secondary,
+                size: 24.0,
               ),
+              onPressed: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: TasksEditWidget(),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              },
             ),
           ],
-          centerTitle: true,
-          elevation: 0.0,
+          centerTitle: false,
+          elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
@@ -101,12 +121,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController1 ??=
                               FormFieldController<String>(null),
-                          options: [
-                            'Все категории',
-                            'Работа',
-                            'Личное',
-                            'Учеба'
-                          ],
+                          options: ['0', '5', '10', '15', '20'],
                           onChanged: (val) =>
                               safeSetState(() => _model.dropDownValue1 = val),
                           width: 150.0,
@@ -114,6 +129,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
+                                    fontSize: 14.0,
                                     letterSpacing: 0.0,
                                   ),
                           hintText: 'Категория',
@@ -129,7 +145,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           borderWidth: 1.0,
                           borderRadius: 8.0,
                           margin: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
+                              12.0, 0.0, 0.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
                           isSearchable: false,
@@ -138,12 +154,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController2 ??=
                               FormFieldController<String>(null),
-                          options: [
-                            'Все приоритеты',
-                            'Высокий',
-                            'Средний',
-                            'Низкий'
-                          ],
+                          options: Priority.values.map((e) => e.name).toList(),
                           onChanged: (val) =>
                               safeSetState(() => _model.dropDownValue2 = val),
                           width: 150.0,
@@ -151,6 +162,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
+                                    fontSize: 14.0,
                                     letterSpacing: 0.0,
                                   ),
                           hintText: 'Приоритет',
@@ -166,7 +178,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           borderWidth: 1.0,
                           borderRadius: 8.0,
                           margin: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
+                              12.0, 0.0, 0.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
                           isSearchable: false,
@@ -211,118 +223,170 @@ class _TasksWidgetState extends State<TasksWidget> {
                           ],
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Подготовить презентацию',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Inter Tight',
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent1,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'В процессе',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Text(
-                                    'Подготовить презентацию',
+                                    'Подготовить презентацию для встречи с клиентом. Включить все ключевые моменты проекта и финансовые показатели.',
                                     style: FlutterFlowTheme.of(context)
-                                        .titleMedium
+                                        .bodyMedium
                                         .override(
-                                          fontFamily: 'Inter Tight',
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
                                         ),
                                   ),
-                                  Container(
-                                    width: 100.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).accent1,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 4.0, 8.0, 4.0),
-                                      child: Text(
-                                        'В процессе',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'Подготовить презентацию для встречи с клиентом. Включить все ключевые моменты проекта и финансовые показатели.',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFEF5350),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 4.0, 8.0, 4.0),
-                                      child: Text(
-                                        'Высокий',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEF5350),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'Высокий',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .primaryText,
-                                              letterSpacing: 0.0,
-                                            ),
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF42A5F5),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 4.0, 8.0, 4.0),
-                                      child: Text(
-                                        'Работа',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF42A5F5),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'Работа',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .primaryText,
-                                              letterSpacing: 0.0,
-                                            ),
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Expanded(
+                                        child: FlutterFlowIconButton(
+                                          borderRadius: 8.0,
+                                          buttonSize: 40.0,
+                                          fillColor: Color(0x00A8D5BA),
+                                          icon: Icon(
+                                            Icons.edit_note,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: TasksEditWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                        ),
+                                      ),
+                                    ].divide(SizedBox(width: 12.0)),
                                   ),
-                                ].divide(SizedBox(width: 12.0)),
+                                ].divide(SizedBox(height: 8.0)),
                               ),
-                            ].divide(SizedBox(height: 8.0)),
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -362,6 +426,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                         .titleMedium
                                         .override(
                                           fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -384,7 +449,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .secondaryText,
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -452,6 +517,22 @@ class _TasksWidgetState extends State<TasksWidget> {
                                       ),
                                     ),
                                   ),
+                                  Expanded(
+                                    child: FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 40.0,
+                                      fillColor: Color(0x00A8D5BA),
+                                      icon: Icon(
+                                        Icons.edit_note,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ),
                                 ].divide(SizedBox(width: 12.0)),
                               ),
                             ].divide(SizedBox(height: 8.0)),
@@ -495,6 +576,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                         .titleMedium
                                         .override(
                                           fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -585,6 +667,22 @@ class _TasksWidgetState extends State<TasksWidget> {
                                       ),
                                     ),
                                   ),
+                                  Expanded(
+                                    child: FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 40.0,
+                                      fillColor: Color(0x00A8D5BA),
+                                      icon: Icon(
+                                        Icons.edit_note,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ),
                                 ].divide(SizedBox(width: 12.0)),
                               ),
                             ].divide(SizedBox(height: 8.0)),
@@ -628,6 +726,637 @@ class _TasksWidgetState extends State<TasksWidget> {
                                         .titleMedium
                                         .override(
                                           fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF90CAF9),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Создана',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Позвонить родителям и узнать как у них дела. Обсудить планы на выходные.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF81C784),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Низкий',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF9575CD),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Личное',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(width: 12.0)),
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0x1A000000),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Подготовить презентацию',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Inter Tight',
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent1,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'В процессе',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'Подготовить презентацию для встречи с клиентом. Включить все ключевые моменты проекта и финансовые показатели.',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEF5350),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'Высокий',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF42A5F5),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 4.0, 8.0, 4.0),
+                                          child: Text(
+                                            'Работа',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: FlutterFlowIconButton(
+                                          borderRadius: 8.0,
+                                          buttonSize: 40.0,
+                                          fillColor: Color(0x00A8D5BA),
+                                          icon: Icon(
+                                            Icons.edit_note,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: TasksEditWidget(),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                        ),
+                                      ),
+                                    ].divide(SizedBox(width: 12.0)),
+                                  ),
+                                ].divide(SizedBox(height: 8.0)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0x1A000000),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Купить продукты',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF66BB6A),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Выполнена',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Купить продукты на неделю: молоко, хлеб, овощи, фрукты, мясо.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFFFB74D),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Средний',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF9575CD),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Личное',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 40.0,
+                                      fillColor: Color(0x00A8D5BA),
+                                      icon: Icon(
+                                        Icons.edit_note,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ),
+                                ].divide(SizedBox(width: 12.0)),
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0x1A000000),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Подготовиться к экзамену',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF90CAF9),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Создана',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Прочитать главы 5-8 учебника, решить задачи из практикума, повторить конспекты лекций.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEF5350),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Высокий',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF4DB6AC),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 4.0, 8.0, 4.0),
+                                      child: Text(
+                                        'Учеба',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 40.0,
+                                      fillColor: Color(0x00A8D5BA),
+                                      icon: Icon(
+                                        Icons.edit_note,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ),
+                                ].divide(SizedBox(width: 12.0)),
+                              ),
+                            ].divide(SizedBox(height: 8.0)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0x1A000000),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Позвонить родителям',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          fontSize: 14.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),

@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -78,13 +80,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? TimerWidget() : LoginWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? TimerWidget() : LoginWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
         ),
         FFRoute(
           name: LoginWidget.routeName,
@@ -94,12 +96,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TimerWidget.routeName,
           path: TimerWidget.routePath,
-          builder: (context, params) => TimerWidget(),
+          requireAuth: true,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'timer')
+              : NavBarPage(
+                  initialPage: 'timer',
+                  page: TimerWidget(),
+                ),
         ),
         FFRoute(
           name: TasksWidget.routeName,
           path: TasksWidget.routePath,
-          builder: (context, params) => TasksWidget(),
+          requireAuth: true,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'tasks')
+              : NavBarPage(
+                  initialPage: 'tasks',
+                  page: TasksWidget(),
+                ),
+        ),
+        FFRoute(
+          name: HabitsWidget.routeName,
+          path: HabitsWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'habits')
+              : HabitsWidget(),
+        ),
+        FFRoute(
+          name: AnalitiksWidget.routeName,
+          path: AnalitiksWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'analitiks')
+              : AnalitiksWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -72,6 +72,25 @@ class _LoginWidgetState extends State<LoginWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFE8F5E9),
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          title: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Text(
+              'Вход',
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Inter Tight',
+                    color: Colors.white,
+                    fontSize: 22.0,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+          ),
+          actions: [],
+          centerTitle: false,
+          elevation: 2.0,
+        ),
         body: SafeArea(
           top: true,
           child: Container(

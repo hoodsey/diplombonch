@@ -125,6 +125,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'tiemr_page')
               : TiemrPageWidget(),
+        ),
+        FFRoute(
+          name: ProfileWidget.routeName,
+          path: ProfileWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'profile')
+              : NavBarPage(
+                  initialPage: 'profile',
+                  page: ProfileWidget(),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

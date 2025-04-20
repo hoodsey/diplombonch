@@ -339,7 +339,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                                           fontFamily: 'Inter',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryText,
+                                                              .primaryBackground,
                                                           letterSpacing: 0.0,
                                                         ),
                                               ),
@@ -365,7 +365,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                                           fontFamily: 'Inter',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryText,
+                                                              .primaryBackground,
                                                           letterSpacing: 0.0,
                                                         ),
                                               ),
@@ -528,7 +528,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .primaryBackground,
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -552,7 +552,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .primaryBackground,
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -685,7 +685,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .primaryBackground,
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -709,7 +709,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .info,
+                                                      .primaryBackground,
                                               letterSpacing: 0.0,
                                             ),
                                       ),

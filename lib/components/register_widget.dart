@@ -355,7 +355,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x33FFFFFF),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           suffixIcon: Icon(
                             Icons.calendar_today,
                           ),
@@ -429,7 +430,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x33FFFFFF),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                               () => _model.passwordVisibility1 =
@@ -511,7 +513,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: Color(0x33FFFFFF),
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           suffixIcon: InkWell(
                             onTap: () => safeSetState(
                               () => _model.passwordVisibility2 =
@@ -528,6 +531,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
                             ),
                         validator: _model.textController5Validator

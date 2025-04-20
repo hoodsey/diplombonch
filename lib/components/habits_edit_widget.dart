@@ -438,7 +438,8 @@ class _HabitsEditWidgetState extends State<HabitsEditWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context).info,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     letterSpacing: 0.0,
                                   ),
                             ),

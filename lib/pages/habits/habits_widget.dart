@@ -131,14 +131,19 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                 fontFamily: 'Inter',
                                 letterSpacing: 0.0,
                               ),
-                      selectedDateStyle: FlutterFlowTheme.of(context)
-                          .titleSmall
-                          .override(
-                            fontFamily: 'Inter Tight',
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            letterSpacing: 0.0,
-                          ),
+                      selectedDateStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Inter Tight',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        letterSpacing: 0.0,
+                        shadows: [
+                          Shadow(
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 2.0,
+                          )
+                        ],
+                      ),
                       inactiveDateStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 fontFamily: 'Inter',

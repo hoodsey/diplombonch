@@ -141,6 +141,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'habits': HabitsWidget(),
       'analitiks': AnalitiksWidget(),
       'tiemr_page': TiemrPageWidget(),
+      'profile': ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -185,6 +186,13 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.timer_sharp,
             ),
             label: 'timer',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_sharp,
+            ),
+            label: '',
             tooltip: '',
           )
         ],

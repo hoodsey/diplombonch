@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'tasks_edit_widget.dart' show TasksEditWidget;
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class TasksEditModel extends FlutterFlowModel<TasksEditWidget> {

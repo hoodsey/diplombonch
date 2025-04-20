@@ -1,9 +1,10 @@
+import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'analitiks_model.dart';
@@ -541,9 +542,7 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                             .headlineSmall
                                             .override(
                                               fontFamily: 'Inter Tight',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              color: Color(0xFF395646),
                                               fontSize: 18.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
@@ -679,42 +678,66 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                   .primaryBackground,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: Container(
-                              width: 370.0,
-                              height: 230.0,
-                              child: FlutterFlowBarChart(
-                                barData: [
-                                  FFBarChartData(
-                                    yData: List.generate(
-                                        random_data.randomInteger(5, 5),
-                                        (index) =>
-                                            random_data.randomInteger(0, 10)),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                  )
-                                ],
-                                xLabels: List.generate(
-                                        random_data.randomInteger(5, 5),
-                                        (index) =>
-                                            random_data.randomInteger(0, 10))
-                                    .map((e) => e.toString())
-                                    .toList(),
-                                barWidth: 20.0,
-                                barBorderRadius: BorderRadius.circular(8.0),
-                                groupSpace: 8.0,
-                                alignment: BarChartAlignment.spaceAround,
-                                chartStylingInfo: ChartStylingInfo(
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  showBorder: false,
-                                ),
-                                axisBounds: AxisBounds(),
-                                xAxisLabelInfo: AxisLabelInfo(
-                                  reservedSize: 28.0,
-                                ),
-                                yAxisLabelInfo: AxisLabelInfo(
-                                  reservedSize: 42.0,
+                            child: FutureBuilder<List<TaskRecord>>(
+                              future: queryTaskRecordOnce(
+                                queryBuilder: (taskRecord) => taskRecord.where(
+                                  'status',
+                                  isEqualTo: Stasus.success.name,
                                 ),
                               ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<TaskRecord> chartTaskRecordList =
+                                    snapshot.data!;
+
+                                return Container(
+                                  width: 370.0,
+                                  height: 230.0,
+                                  child: FlutterFlowBarChart(
+                                    barData: [
+                                      FFBarChartData(
+                                        yData: chartTaskRecordList,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                      )
+                                    ],
+                                    xLabels: chartTaskRecordList
+                                        .map((e) => e.category)
+                                        .toList(),
+                                    barWidth: 20.0,
+                                    barBorderRadius: BorderRadius.circular(8.0),
+                                    groupSpace: 8.0,
+                                    alignment: BarChartAlignment.spaceAround,
+                                    chartStylingInfo: ChartStylingInfo(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      showBorder: false,
+                                    ),
+                                    axisBounds: AxisBounds(),
+                                    xAxisLabelInfo: AxisLabelInfo(
+                                      reservedSize: 28.0,
+                                    ),
+                                    yAxisLabelInfo: AxisLabelInfo(
+                                      reservedSize: 42.0,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           Row(
@@ -881,46 +904,75 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                     .primaryBackground,
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
-                              child: Container(
-                                width: 370.0,
-                                height: 230.0,
-                                child: FlutterFlowLineChart(
-                                  data: [
-                                    FFLineChartData(
-                                      xData: List.generate(
-                                          random_data.randomInteger(5, 5),
-                                          (index) => random_data.randomName(
-                                              true, true)),
-                                      yData: List.generate(
-                                          random_data.randomInteger(5, 5),
-                                          (index) =>
-                                              random_data.randomInteger(0, 10)),
-                                      settings: LineChartBarData(
-                                        color: Color(0xFF4B39EF),
-                                        barWidth: 3.0,
-                                        isCurved: true,
-                                        dotData: FlDotData(show: false),
-                                        belowBarData: BarAreaData(
-                                          show: true,
-                                          color: Color(0x1A4B39EF),
+                              child: StreamBuilder<List<TaskRecord>>(
+                                stream: queryTaskRecord(
+                                  queryBuilder: (taskRecord) => taskRecord
+                                      .where(
+                                        'status',
+                                        isEqualTo: Stasus.success.name,
+                                      )
+                                      .orderBy('updated_time'),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                  chartStylingInfo: ChartStylingInfo(
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                    showBorder: false,
-                                  ),
-                                  axisBounds: AxisBounds(),
-                                  xAxisLabelInfo: AxisLabelInfo(
-                                    reservedSize: 32.0,
-                                  ),
-                                  yAxisLabelInfo: AxisLabelInfo(
-                                    reservedSize: 40.0,
-                                  ),
-                                ),
+                                    );
+                                  }
+                                  List<TaskRecord> chartTaskRecordList =
+                                      snapshot.data!;
+
+                                  return Container(
+                                    width: 370.0,
+                                    height: 230.0,
+                                    child: FlutterFlowLineChart(
+                                      data: [
+                                        FFLineChartData(
+                                          xData: chartTaskRecordList
+                                              .map((d) => d.taskid)
+                                              .toList(),
+                                          yData: chartTaskRecordList
+                                              .map((d) => d.updatedTime)
+                                              .toList(),
+                                          settings: LineChartBarData(
+                                            color: Color(0xFF4B39EF),
+                                            barWidth: 3.0,
+                                            isCurved: true,
+                                            dotData: FlDotData(show: false),
+                                            belowBarData: BarAreaData(
+                                              show: true,
+                                              color: Color(0x1A4B39EF),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                      chartStylingInfo: ChartStylingInfo(
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                        showBorder: false,
+                                      ),
+                                      axisBounds: AxisBounds(),
+                                      xAxisLabelInfo: AxisLabelInfo(
+                                        reservedSize: 32.0,
+                                      ),
+                                      yAxisLabelInfo: AxisLabelInfo(
+                                        reservedSize: 40.0,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             Row(

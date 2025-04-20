@@ -139,7 +139,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         FlutterFlowDropDown<String>(
                           controller: _model.dropDownValueController1 ??=
                               FormFieldController<String>(null),
-                          options: ['0', '5', '10', '15', '20'],
+                          options: Category.values.map((e) => e.name).toList(),
                           onChanged: (val) =>
                               safeSetState(() => _model.dropDownValue1 = val),
                           width: 150.0,

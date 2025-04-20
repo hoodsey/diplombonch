@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -30,10 +31,30 @@ class AnalyticsRecord extends FirestoreRecord {
   String get recommendationId => _recommendationId ?? '';
   bool hasRecommendationId() => _recommendationId != null;
 
+  // "category" field.
+  Category? _category;
+  Category? get category => _category;
+  bool hasCategory() => _category != null;
+
+  // "habitStreaks" field.
+  int? _habitStreaks;
+  int get habitStreaks => _habitStreaks ?? 0;
+  bool hasHabitStreaks() => _habitStreaks != null;
+
+  // "CreateDate" field.
+  DateTime? _createDate;
+  DateTime? get createDate => _createDate;
+  bool hasCreateDate() => _createDate != null;
+
   void _initializeFields() {
     _dailyFocusTime = castToType<int>(snapshotData['dailyFocusTime']);
     _completedTasks = castToType<int>(snapshotData['completedTasks']);
     _recommendationId = snapshotData['recommendationId'] as String?;
+    _category = snapshotData['category'] is Category
+        ? snapshotData['category']
+        : deserializeEnum<Category>(snapshotData['category']);
+    _habitStreaks = castToType<int>(snapshotData['habitStreaks']);
+    _createDate = snapshotData['CreateDate'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -74,12 +95,18 @@ Map<String, dynamic> createAnalyticsRecordData({
   int? dailyFocusTime,
   int? completedTasks,
   String? recommendationId,
+  Category? category,
+  int? habitStreaks,
+  DateTime? createDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'dailyFocusTime': dailyFocusTime,
       'completedTasks': completedTasks,
       'recommendationId': recommendationId,
+      'category': category,
+      'habitStreaks': habitStreaks,
+      'CreateDate': createDate,
     }.withoutNulls,
   );
 
@@ -93,12 +120,21 @@ class AnalyticsRecordDocumentEquality implements Equality<AnalyticsRecord> {
   bool equals(AnalyticsRecord? e1, AnalyticsRecord? e2) {
     return e1?.dailyFocusTime == e2?.dailyFocusTime &&
         e1?.completedTasks == e2?.completedTasks &&
-        e1?.recommendationId == e2?.recommendationId;
+        e1?.recommendationId == e2?.recommendationId &&
+        e1?.category == e2?.category &&
+        e1?.habitStreaks == e2?.habitStreaks &&
+        e1?.createDate == e2?.createDate;
   }
 
   @override
-  int hash(AnalyticsRecord? e) => const ListEquality()
-      .hash([e?.dailyFocusTime, e?.completedTasks, e?.recommendationId]);
+  int hash(AnalyticsRecord? e) => const ListEquality().hash([
+        e?.dailyFocusTime,
+        e?.completedTasks,
+        e?.recommendationId,
+        e?.category,
+        e?.habitStreaks,
+        e?.createDate
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is AnalyticsRecord;

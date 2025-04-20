@@ -60,6 +60,11 @@ class TaskRecord extends FirestoreRecord {
   int get taskid => _taskid ?? 0;
   bool hasTaskid() => _taskid != null;
 
+  // "id" field.
+  DocumentReference? _id;
+  DocumentReference? get id => _id;
+  bool hasId() => _id != null;
+
   void _initializeFields() {
     _owner = castToType<int>(snapshotData['owner']);
     _title = snapshotData['title'] as String?;
@@ -70,6 +75,7 @@ class TaskRecord extends FirestoreRecord {
     _updatedTime = snapshotData['updated_time'] as DateTime?;
     _status = snapshotData['status'] as String?;
     _taskid = castToType<int>(snapshotData['taskid']);
+    _id = snapshotData['id'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +121,7 @@ Map<String, dynamic> createTaskRecordData({
   DateTime? updatedTime,
   String? status,
   int? taskid,
+  DocumentReference? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +134,7 @@ Map<String, dynamic> createTaskRecordData({
       'updated_time': updatedTime,
       'status': status,
       'taskid': taskid,
+      'id': id,
     }.withoutNulls,
   );
 
@@ -146,7 +154,8 @@ class TaskRecordDocumentEquality implements Equality<TaskRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.updatedTime == e2?.updatedTime &&
         e1?.status == e2?.status &&
-        e1?.taskid == e2?.taskid;
+        e1?.taskid == e2?.taskid &&
+        e1?.id == e2?.id;
   }
 
   @override
@@ -159,7 +168,8 @@ class TaskRecordDocumentEquality implements Equality<TaskRecord> {
         e?.createdTime,
         e?.updatedTime,
         e?.status,
-        e?.taskid
+        e?.taskid,
+        e?.id
       ]);
 
   @override

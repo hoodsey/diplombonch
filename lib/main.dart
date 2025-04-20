@@ -151,6 +151,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'analitiks': AnalitiksWidget(),
       'tiemr_page': TiemrPageWidget(),
       'profile': ProfileWidget(),
+      'tasksCopy': TasksCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -202,6 +203,13 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.person_sharp,
             ),
             label: '',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.task_alt_rounded,
+            ),
+            label: 'tasks',
             tooltip: '',
           )
         ],

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'analitiks_model.dart';
@@ -710,14 +711,18 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                   child: FlutterFlowBarChart(
                                     barData: [
                                       FFBarChartData(
-                                        yData: chartTaskRecordList,
+                                        yData: List.generate(
+                                            random_data.randomInteger(5, 5),
+                                            (index) => random_data.randomName(
+                                                true, true)),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                       )
                                     ],
-                                    xLabels: chartTaskRecordList
-                                        .map((e) => e.category)
-                                        .toList(),
+                                    xLabels: List.generate(
+                                        random_data.randomInteger(5, 5),
+                                        (index) =>
+                                            random_data.randomName(true, true)),
                                     barWidth: 20.0,
                                     barBorderRadius: BorderRadius.circular(8.0),
                                     groupSpace: 8.0,

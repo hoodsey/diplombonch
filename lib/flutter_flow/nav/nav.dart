@@ -126,7 +126,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ? NavBarPage(initialPage: 'tiemr_page')
               : NavBarPage(
                   initialPage: 'tiemr_page',
-                  page: TiemrPageWidget(),
+                  page: TiemrPageWidget(
+                    date: params.getParam(
+                      'date',
+                      ParamType.DateTime,
+                    ),
+                  ),
                 ),
         ),
         FFRoute(
@@ -137,6 +142,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : NavBarPage(
                   initialPage: 'profile',
                   page: ProfileWidget(),
+                ),
+        ),
+        FFRoute(
+          name: TasksCopyWidget.routeName,
+          path: TasksCopyWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'tasksCopy')
+              : NavBarPage(
+                  initialPage: 'tasksCopy',
+                  page: TasksCopyWidget(),
                 ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

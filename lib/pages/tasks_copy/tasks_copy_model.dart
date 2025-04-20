@@ -1,13 +1,15 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'tasks_widget.dart' show TasksWidget;
+import 'tasks_copy_widget.dart' show TasksCopyWidget;
 import 'package:flutter/material.dart';
 
-class TasksModel extends FlutterFlowModel<TasksWidget> {
+class TasksCopyModel extends FlutterFlowModel<TasksCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Calendar widget.
   DateTimeRange? calendarSelectedDay;
+  List<TaskRecord>? listViewPreviousSnapshot;
 
   @override
   void initState(BuildContext context) {

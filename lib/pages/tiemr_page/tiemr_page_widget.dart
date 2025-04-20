@@ -1,3 +1,6 @@
+import '/backend/backend.dart';
+import '/components/tasks_edit_widget.dart';
+import '/components/timer_settings_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -10,7 +13,12 @@ import 'tiemr_page_model.dart';
 export 'tiemr_page_model.dart';
 
 class TiemrPageWidget extends StatefulWidget {
-  const TiemrPageWidget({super.key});
+  const TiemrPageWidget({
+    super.key,
+    this.date,
+  });
+
+  final DateTime? date;
 
   static String routeName = 'tiemr_page';
   static String routePath = '/tiemrPage';
@@ -94,7 +102,7 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(14.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -108,48 +116,50 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
                         color: Color(0x99FFFFFF),
                         borderRadius: BorderRadius.circular(24.0),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircularPercentIndicator(
-                              percent: 0.75,
-                              radius: 75.0,
-                              lineWidth: 150.0,
-                              animation: true,
-                              animateFromLastPercent: true,
-                              progressColor:
-                                  FlutterFlowTheme.of(context).primary,
-                              backgroundColor: Color(0x33FFFFFF),
-                              center: Text(
-                                '25:00',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineLarge
-                                    .override(
-                                      fontFamily: 'Inter Tight',
-                                      color: Color(0xFF1A5E20),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: CircularPercentIndicator(
+                                percent: 1.0,
+                                radius: 75.0,
+                                lineWidth: 150.0,
+                                animation: true,
+                                animateFromLastPercent: true,
+                                progressColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                backgroundColor: Color(0x33FFFFFF),
+                                center: Text(
+                                  '25:00',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Color(0xFF1A5E20),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
                               ),
                             ),
-                            Text(
-                              'Помидор 1 из 4',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    fontFamily: 'Inter Tight',
-                                    color: Color(0xFF1A5E20),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                          ].divide(SizedBox(height: 16.0)),
-                        ),
+                          ),
+                          Text(
+                            'Pomodoro 1 из 4',
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  fontFamily: 'Inter Tight',
+                                  color: Color(0xFF1A5E20),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ].divide(SizedBox(height: 16.0)),
                       ),
                     ),
                     Row(
@@ -263,55 +273,87 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Container(
-                                        width: 120.0,
-                                        height: 80.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 5.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(
-                                                0.0,
-                                                3.0,
-                                              ),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(16.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.work_outline_rounded,
-                                                color: Colors.white,
-                                                size: 24.0,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Deep Work',
-                                                  textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: TimerSettingsWidget(),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: Container(
+                                          width: 120.0,
+                                          height: 80.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 5.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(
+                                                  0.0,
+                                                  3.0,
+                                                ),
+                                              )
                                             ],
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(16.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.work_outline_rounded,
+                                                  color: Colors.white,
+                                                  size: 24.0,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 4.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Deep Work',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -460,45 +502,94 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
-                            FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController ??=
-                                  FormFieldController<String>(null),
-                              options: [
-                                'Подготовка презентации',
-                                'Изучение материалов',
-                                'Написание отчета'
-                              ],
-                              onChanged: (val) => safeSetState(
-                                  () => _model.dropDownValue = val),
-                              width: double.infinity,
-                              height: 50.0,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    letterSpacing: 0.0,
-                                  ),
-                              hintText: 'Выберите задачу...',
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Colors.white,
-                                size: 24.0,
+                            StreamBuilder<List<TaskRecord>>(
+                              stream: queryTaskRecord(
+                                queryBuilder: (taskRecord) => taskRecord.where(
+                                  'status',
+                                  isNotEqualTo: 'Выполнена',
+                                ),
                               ),
-                              fillColor: Color(0x33FFFFFF),
-                              elevation: 2.0,
-                              borderColor: FlutterFlowTheme.of(context).primary,
-                              borderWidth: 1.0,
-                              borderRadius: 8.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 4.0, 12.0, 4.0),
-                              hidesUnderline: true,
-                              isSearchable: false,
-                              isMultiSelect: false,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<TaskRecord> dropDownTaskRecordList =
+                                    snapshot.data!;
+
+                                return FlutterFlowDropDown<String>(
+                                  controller: _model.dropDownValueController ??=
+                                      FormFieldController<String>(null),
+                                  options: [
+                                    'Подготовка презентации',
+                                    'Изучение материалов',
+                                    'Написание отчета'
+                                  ],
+                                  onChanged: (val) => safeSetState(
+                                      () => _model.dropDownValue = val),
+                                  width: double.infinity,
+                                  height: 50.0,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'Выберите задачу...',
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: Colors.white,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: Color(0x33FFFFFF),
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  borderWidth: 1.0,
+                                  borderRadius: 8.0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 4.0, 12.0, 4.0),
+                                  hidesUnderline: true,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
+                                );
+                              },
                             ),
                             FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: TasksEditWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
                               },
                               text: 'Создать новую задачу',
                               options: FFButtonOptions(
@@ -531,7 +622,7 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color(0x99FFFFFF),
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 8.0,
@@ -568,16 +659,43 @@ class _TiemrPageWidgetState extends State<TiemrPageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      '4',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: Color(0xFF1A5E20),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
+                                    FutureBuilder<int>(
+                                      future: queryTimerSessionRecordCount(),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        int textCount = snapshot.data!;
+
+                                        return Text(
+                                          valueOrDefault<String>(
+                                            textCount.toString(),
+                                            '0',
                                           ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xFF1A5E20),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        );
+                                      },
                                     ),
                                     Text(
                                       'Сессий сегодня',

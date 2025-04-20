@@ -146,20 +146,6 @@ class _TimerSettingsWidgetState extends State<TimerSettingsWidget> {
                             letterSpacing: 0.0,
                           ),
                     ),
-                    Container(
-                      width: double.infinity,
-                      child: Slider(
-                        activeColor: FlutterFlowTheme.of(context).primary,
-                        inactiveColor: Color(0x33000000),
-                        min: 1.0,
-                        max: 10.0,
-                        value: _model.sliderValue2 ??= 4.0,
-                        onChanged: (newValue) {
-                          newValue = double.parse(newValue.toStringAsFixed(4));
-                          safeSetState(() => _model.sliderValue2 = newValue);
-                        },
-                      ),
-                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,10 +204,10 @@ class _TimerSettingsWidgetState extends State<TimerSettingsWidget> {
                         inactiveColor: Color(0x33000000),
                         min: 1.0,
                         max: 30.0,
-                        value: _model.sliderValue3 ??= 5.0,
+                        value: _model.sliderValue2 ??= 5.0,
                         onChanged: (newValue) {
                           newValue = double.parse(newValue.toStringAsFixed(4));
-                          safeSetState(() => _model.sliderValue3 = newValue);
+                          safeSetState(() => _model.sliderValue2 = newValue);
                         },
                       ),
                     ),

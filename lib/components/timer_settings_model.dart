@@ -9,8 +9,6 @@ class TimerSettingsModel extends FlutterFlowModel<TimerSettingsWidget> {
   double? sliderValue1;
   // State field(s) for Slider widget.
   double? sliderValue2;
-  // State field(s) for Slider widget.
-  double? sliderValue3;
 
   @override
   void initState(BuildContext context) {}

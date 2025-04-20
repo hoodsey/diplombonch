@@ -20,11 +20,6 @@ class TimerSessionRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
-  // "sessionId" field.
-  String? _sessionId;
-  String get sessionId => _sessionId ?? '';
-  bool hasSessionId() => _sessionId != null;
-
   // "mode" field.
   String? _mode;
   String get mode => _mode ?? '';
@@ -45,19 +40,42 @@ class TimerSessionRecord extends FirestoreRecord {
   DateTime? get endTime => _endTime;
   bool hasEndTime() => _endTime != null;
 
-  // "distractions" field.
-  DateTime? _distractions;
-  DateTime? get distractions => _distractions;
-  bool hasDistractions() => _distractions != null;
+  // "tasksid" field.
+  int? _tasksid;
+  int get tasksid => _tasksid ?? 0;
+  bool hasTasksid() => _tasksid != null;
+
+  // "sessionid" field.
+  int? _sessionid;
+  int get sessionid => _sessionid ?? 0;
+  bool hasSessionid() => _sessionid != null;
+
+  // "count" field.
+  int? _count;
+  int get count => _count ?? 0;
+  bool hasCount() => _count != null;
+
+  // "pause" field.
+  int? _pause;
+  int get pause => _pause ?? 0;
+  bool hasPause() => _pause != null;
+
+  // "completed" field.
+  bool? _completed;
+  bool get completed => _completed ?? false;
+  bool hasCompleted() => _completed != null;
 
   void _initializeFields() {
     _createdAt = snapshotData['created_at'] as DateTime?;
-    _sessionId = snapshotData['sessionId'] as String?;
     _mode = snapshotData['mode'] as String?;
     _duration = castToType<int>(snapshotData['duration']);
     _startTime = snapshotData['startTime'] as DateTime?;
     _endTime = snapshotData['endTime'] as DateTime?;
-    _distractions = snapshotData['distractions'] as DateTime?;
+    _tasksid = castToType<int>(snapshotData['tasksid']);
+    _sessionid = castToType<int>(snapshotData['sessionid']);
+    _count = castToType<int>(snapshotData['count']);
+    _pause = castToType<int>(snapshotData['pause']);
+    _completed = snapshotData['completed'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -96,22 +114,28 @@ class TimerSessionRecord extends FirestoreRecord {
 
 Map<String, dynamic> createTimerSessionRecordData({
   DateTime? createdAt,
-  String? sessionId,
   String? mode,
   int? duration,
   DateTime? startTime,
   DateTime? endTime,
-  DateTime? distractions,
+  int? tasksid,
+  int? sessionid,
+  int? count,
+  int? pause,
+  bool? completed,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'created_at': createdAt,
-      'sessionId': sessionId,
       'mode': mode,
       'duration': duration,
       'startTime': startTime,
       'endTime': endTime,
-      'distractions': distractions,
+      'tasksid': tasksid,
+      'sessionid': sessionid,
+      'count': count,
+      'pause': pause,
+      'completed': completed,
     }.withoutNulls,
   );
 
@@ -125,23 +149,29 @@ class TimerSessionRecordDocumentEquality
   @override
   bool equals(TimerSessionRecord? e1, TimerSessionRecord? e2) {
     return e1?.createdAt == e2?.createdAt &&
-        e1?.sessionId == e2?.sessionId &&
         e1?.mode == e2?.mode &&
         e1?.duration == e2?.duration &&
         e1?.startTime == e2?.startTime &&
         e1?.endTime == e2?.endTime &&
-        e1?.distractions == e2?.distractions;
+        e1?.tasksid == e2?.tasksid &&
+        e1?.sessionid == e2?.sessionid &&
+        e1?.count == e2?.count &&
+        e1?.pause == e2?.pause &&
+        e1?.completed == e2?.completed;
   }
 
   @override
   int hash(TimerSessionRecord? e) => const ListEquality().hash([
         e?.createdAt,
-        e?.sessionId,
         e?.mode,
         e?.duration,
         e?.startTime,
         e?.endTime,
-        e?.distractions
+        e?.tasksid,
+        e?.sessionid,
+        e?.count,
+        e?.pause,
+        e?.completed
       ]);
 
   @override

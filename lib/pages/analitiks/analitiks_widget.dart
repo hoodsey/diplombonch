@@ -472,7 +472,7 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                         ].divide(SizedBox(width: 8.0)),
                                       ),
                                       Text(
-                                        'Использование таймера повышает вашу продуктивность на 23%. Рекомендуем применять технику Помодоро для всех задач.',
+                                        'Попробуйте режим \'Помодоро 25/5\' — ваши средние оценки в нём выше остальных',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

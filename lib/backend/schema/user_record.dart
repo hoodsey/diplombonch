@@ -50,6 +50,16 @@ class UserRecord extends FirestoreRecord {
   String get password => _password ?? '';
   bool hasPassword() => _password != null;
 
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
+
+  // "notificationEnabled" field.
+  bool? _notificationEnabled;
+  bool get notificationEnabled => _notificationEnabled ?? false;
+  bool hasNotificationEnabled() => _notificationEnabled != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -58,6 +68,8 @@ class UserRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _password = snapshotData['password'] as String?;
+    _status = snapshotData['status'] as String?;
+    _notificationEnabled = snapshotData['notificationEnabled'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -101,6 +113,8 @@ Map<String, dynamic> createUserRecordData({
   String? phoneNumber,
   String? photoUrl,
   String? password,
+  String? status,
+  bool? notificationEnabled,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -111,6 +125,8 @@ Map<String, dynamic> createUserRecordData({
       'phone_number': phoneNumber,
       'photo_url': photoUrl,
       'password': password,
+      'status': status,
+      'notificationEnabled': notificationEnabled,
     }.withoutNulls,
   );
 
@@ -128,7 +144,9 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.photoUrl == e2?.photoUrl &&
-        e1?.password == e2?.password;
+        e1?.password == e2?.password &&
+        e1?.status == e2?.status &&
+        e1?.notificationEnabled == e2?.notificationEnabled;
   }
 
   @override
@@ -139,7 +157,9 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.photoUrl,
-        e?.password
+        e?.password,
+        e?.status,
+        e?.notificationEnabled
       ]);
 
   @override

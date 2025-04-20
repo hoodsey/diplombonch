@@ -232,10 +232,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(12.0),
+                        borderRadius: BorderRadius.circular(14.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(6.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,6 +256,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     () => _model.switchValue = newValue);
                                 if (newValue) {
                                   setDarkModeSetting(context, ThemeMode.dark);
+                                } else {
+                                  setDarkModeSetting(context, ThemeMode.light);
                                 }
                               },
                               activeColor: FlutterFlowTheme.of(context).primary,

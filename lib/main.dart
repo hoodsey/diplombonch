@@ -124,7 +124,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'timer_pagre';
+  String _currentPageName = 'tiemr_page';
   late Widget? _currentPage;
 
   @override
@@ -140,7 +140,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'tasks': TasksWidget(),
       'habits': HabitsWidget(),
       'analitiks': AnalitiksWidget(),
-      'timer_pagre': TimerPagreWidget(),
+      'tiemr_page': TiemrPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -182,7 +182,7 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.access_time_sharp,
+              Icons.timer_sharp,
             ),
             label: 'timer',
             tooltip: '',

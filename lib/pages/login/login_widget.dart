@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/register_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -45,7 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         return;
       }
 
-      context.goNamedAuth(TimerPagreWidget.routeName, context.mounted);
+      context.goNamedAuth(TiemrPageWidget.routeName, context.mounted);
     });
 
     _model.emailTextController ??= TextEditingController();
@@ -303,8 +304,27 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   .asValidator(context),
                             ),
                             FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: RegisterWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
                               },
                               text: 'Регистрация',
                               options: FFButtonOptions(
@@ -344,8 +364,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 }
 
                                 context.pushNamedAuth(
-                                    TimerPagreWidget.routeName,
-                                    context.mounted);
+                                    TiemrPageWidget.routeName, context.mounted);
                               },
                               text: 'Авторизация',
                               options: FFButtonOptions(

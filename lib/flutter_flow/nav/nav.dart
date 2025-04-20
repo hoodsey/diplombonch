@@ -92,15 +92,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LoginWidget(),
         ),
         FFRoute(
-          name: TimerWidget.routeName,
-          path: TimerWidget.routePath,
-          requireAuth: true,
-          builder: (context, params) => NavBarPage(
-            initialPage: '',
-            page: TimerWidget(),
-          ),
-        ),
-        FFRoute(
           name: TasksWidget.routeName,
           path: TasksWidget.routePath,
           requireAuth: true,
@@ -123,19 +114,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: AnalitiksWidget.routePath,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'analitiks')
-              : AnalitiksWidget(),
+              : NavBarPage(
+                  initialPage: 'analitiks',
+                  page: AnalitiksWidget(),
+                ),
         ),
         FFRoute(
-          name: TimerPagreWidget.routeName,
-          path: TimerPagreWidget.routePath,
+          name: TiemrPageWidget.routeName,
+          path: TiemrPageWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'timer_pagre')
-              : TimerPagreWidget(
-                  timer: params.getParam(
-                    'timer',
-                    ParamType.int,
-                  ),
-                ),
+              ? NavBarPage(initialPage: 'tiemr_page')
+              : TiemrPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

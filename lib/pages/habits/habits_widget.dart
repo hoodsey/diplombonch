@@ -66,7 +66,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                 buttonSize: 40.0,
                 icon: Icon(
                   Icons.add_circle_outline,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
                   size: 24.0,
                 ),
                 onPressed: () async {
@@ -131,11 +131,14 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                 fontFamily: 'Inter',
                                 letterSpacing: 0.0,
                               ),
-                      selectedDateStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter Tight',
-                                letterSpacing: 0.0,
-                              ),
+                      selectedDateStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily: 'Inter Tight',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            letterSpacing: 0.0,
+                          ),
                       inactiveDateStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 fontFamily: 'Inter',
@@ -222,8 +225,8 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                             AlignmentDirectional(0.0, 0.0),
                                         child: Icon(
                                           Icons.check,
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
                                           size: 24.0,
                                         ),
                                       ),
@@ -251,12 +254,19 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                          fontFamily: 'Inter',
+                                          color: Color(0xFF6BC9A5),
+                                          letterSpacing: 0.0,
+                                          shadows: [
+                                            Shadow(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .success,
-                                              letterSpacing: 0.0,
-                                            ),
+                                                      .primaryBackground,
+                                              offset: Offset(2.0, 2.0),
+                                              blurRadius: 2.0,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -341,7 +351,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                         child: Icon(
                                           Icons.close,
                                           color: FlutterFlowTheme.of(context)
-                                              .error,
+                                              .secondary,
                                           size: 24.0,
                                         ),
                                       ),
@@ -453,8 +463,8 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                             AlignmentDirectional(0.0, 0.0),
                                         child: Icon(
                                           Icons.check,
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
                                           size: 24.0,
                                         ),
                                       ),
@@ -483,9 +493,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .success,
+                                              color: Color(0xFF6BC9A5),
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -562,7 +570,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                             BorderRadius.circular(20.0),
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
+                                              .warning,
                                           width: 2.0,
                                         ),
                                       ),
@@ -612,7 +620,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                               fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .warning,
                                               letterSpacing: 0.0,
                                             ),
                                       ),

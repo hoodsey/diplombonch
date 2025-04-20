@@ -91,11 +91,9 @@ class _TimerWidgetState extends State<TimerWidget> {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Container(
-                          width: 338.58,
-                          height: 338.58,
+                          width: 325.19,
+                          height: 325.19,
                           decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4.0,
@@ -106,6 +104,15 @@ class _TimerWidgetState extends State<TimerWidget> {
                                 ),
                               )
                             ],
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).secondary
+                              ],
+                              stops: [0.0, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
+                            ),
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: FlutterFlowTheme.of(context).accent4,
@@ -128,21 +135,6 @@ class _TimerWidgetState extends State<TimerWidget> {
                                         FlutterFlowTheme.of(context).primary,
                                     backgroundColor: Color(0x15000000),
                                   ),
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(-0.03, 0.62),
-                                child: Text(
-                                  'Осталось',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
                                 ),
                               ),
                               Align(
@@ -170,12 +162,51 @@ class _TimerWidgetState extends State<TimerWidget> {
                                       ),
                                 ),
                               ),
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '25:00',
+                                      style: FlutterFlowTheme.of(context)
+                                          .displayMedium
+                                          .override(
+                                            fontFamily: 'Inter Tight',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.6),
+                                      child: Text(
+                                        'Осталось',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(12.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 12.0, 16.0, 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -195,13 +226,14 @@ class _TimerWidgetState extends State<TimerWidget> {
                               ),
                               child: FlutterFlowIconButton(
                                 buttonSize: 60.0,
+                                fillColor: Colors.transparent,
                                 icon: Icon(
                                   Icons.replay,
                                   color: FlutterFlowTheme.of(context).primary,
                                   size: 30.0,
                                 ),
-                                onPressed: () async {
-                                  _model.timerController.onResetTimer();
+                                onPressed: () {
+                                  print('IconButton pressed ...');
                                 },
                               ),
                             ),
@@ -214,13 +246,15 @@ class _TimerWidgetState extends State<TimerWidget> {
                               ),
                               child: FlutterFlowIconButton(
                                 buttonSize: 80.0,
+                                fillColor: Colors.transparent,
                                 icon: Icon(
                                   Icons.play_arrow,
-                                  color: FlutterFlowTheme.of(context).secondary,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   size: 40.0,
                                 ),
-                                onPressed: () async {
-                                  _model.timerController.onStartTimer();
+                                onPressed: () {
+                                  print('IconButton pressed ...');
                                 },
                               ),
                             ),
@@ -238,14 +272,14 @@ class _TimerWidgetState extends State<TimerWidget> {
                               ),
                               child: FlutterFlowIconButton(
                                 buttonSize: 60.0,
+                                fillColor: Colors.transparent,
                                 icon: Icon(
                                   Icons.stop,
                                   color: FlutterFlowTheme.of(context).primary,
                                   size: 30.0,
                                 ),
-                                showLoadingIndicator: true,
-                                onPressed: () async {
-                                  _model.timerController.onStopTimer();
+                                onPressed: () {
+                                  print('IconButton pressed ...');
                                 },
                               ),
                             ),
@@ -253,12 +287,11 @@ class _TimerWidgetState extends State<TimerWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 6.0, 16.0, 6.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4.0,
@@ -267,8 +300,18 @@ class _TimerWidgetState extends State<TimerWidget> {
                                   0.0,
                                   2.0,
                                 ),
+                                spreadRadius: 0.0,
                               )
                             ],
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).secondary
+                              ],
+                              stops: [0.0, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
+                            ),
                             borderRadius: BorderRadius.circular(12.0),
                             border: Border.all(
                               color: FlutterFlowTheme.of(context).accent4,
@@ -276,7 +319,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 16.0, 16.0, 16.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -299,89 +343,79 @@ class _TimerWidgetState extends State<TimerWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Flexible(
-                                          child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, -1.0),
-                                            child: FlutterFlowChoiceChips(
-                                              options: [
-                                                ChipData('Pomodoro'),
-                                                ChipData('Deep Work'),
-                                                ChipData('Короткий перерыв'),
-                                                ChipData('Длинный перерыв')
-                                              ],
-                                              onChanged: (val) => safeSetState(
-                                                  () =>
-                                                      _model.choiceChipsValue =
-                                                          val?.firstOrNull),
-                                              selectedChipStyle: ChipStyle(
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                iconColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                iconSize: 18.0,
-                                                labelPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(12.0, 8.0,
-                                                            12.0, 8.0),
-                                                elevation: 2.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
-                                              ),
-                                              unselectedChipStyle: ChipStyle(
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                iconColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                iconSize: 18.0,
-                                                labelPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(12.0, 8.0,
-                                                            12.0, 8.0),
-                                                elevation: 0.0,
-                                                borderColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent4,
-                                                borderWidth: 1.0,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
-                                              ),
-                                              chipSpacing: 8.0,
-                                              rowSpacing: 8.0,
-                                              multiselect: false,
-                                              alignment: WrapAlignment.center,
-                                              controller: _model
-                                                      .choiceChipsValueController ??=
-                                                  FormFieldController<
-                                                      List<String>>(
-                                                [],
-                                              ),
-                                              wrapped: true,
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, -1.0),
+                                          child: FlutterFlowChoiceChips(
+                                            options: [
+                                              ChipData('Pomodoro'),
+                                              ChipData('Deep Work'),
+                                              ChipData('Короткий перерыв'),
+                                              ChipData('Длинный перерыв')
+                                            ],
+                                            onChanged: (val) => safeSetState(
+                                                () => _model.choiceChipsValue =
+                                                    val?.firstOrNull),
+                                            selectedChipStyle: ChipStyle(
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              iconColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              iconSize: 18.0,
+                                              elevation: 2.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
                                             ),
+                                            unselectedChipStyle: ChipStyle(
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              iconColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              iconSize: 18.0,
+                                              elevation: 0.0,
+                                              borderColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent4,
+                                              borderWidth: 1.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            chipSpacing: 8.0,
+                                            rowSpacing: 8.0,
+                                            multiselect: false,
+                                            alignment: WrapAlignment.center,
+                                            controller: _model
+                                                    .choiceChipsValueController ??=
+                                                FormFieldController<
+                                                    List<String>>(
+                                              [],
+                                            ),
+                                            wrapped: true,
                                           ),
                                         ),
                                       ].divide(SizedBox(width: 0.0)),
@@ -394,12 +428,11 @@ class _TimerWidgetState extends State<TimerWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 16.0, 16.0, 16.0),
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4.0,
@@ -408,8 +441,18 @@ class _TimerWidgetState extends State<TimerWidget> {
                                   0.0,
                                   2.0,
                                 ),
+                                spreadRadius: 0.0,
                               )
                             ],
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).primary,
+                                FlutterFlowTheme.of(context).secondary
+                              ],
+                              stops: [0.0, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
+                            ),
                             borderRadius: BorderRadius.circular(12.0),
                             border: Border.all(
                               color: FlutterFlowTheme.of(context).accent4,
@@ -417,42 +460,49 @@ class _TimerWidgetState extends State<TimerWidget> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 16.0, 16.0, 16.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Связать с задачей',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .override(
-                                            fontFamily: 'Inter Tight',
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    FlutterFlowIconButton(
-                                      borderRadius: 20.0,
-                                      buttonSize: 40.0,
-                                      icon: Icon(
-                                        Icons.add_task,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 24.0,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Связать с задачей',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Inter Tight',
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
-                                      },
-                                    ),
-                                  ],
+                                      FlutterFlowIconButton(
+                                        borderRadius: 20.0,
+                                        buttonSize: 40.0,
+                                        fillColor: Colors.transparent,
+                                        icon: Icon(
+                                          Icons.add_task,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 24.0,
+                                        ),
+                                        onPressed: () {
+                                          print('IconButton pressed ...');
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(12.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
                                   child: Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
@@ -461,7 +511,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 12.0, 12.0, 12.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -507,6 +558,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                                           FlutterFlowIconButton(
                                             borderRadius: 20.0,
                                             buttonSize: 40.0,
+                                            fillColor: Colors.transparent,
                                             icon: Icon(
                                               Icons.close,
                                               color:
@@ -532,7 +584,8 @@ class _TimerWidgetState extends State<TimerWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(24.0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -545,26 +598,134 @@ class _TimerWidgetState extends State<TimerWidget> {
                             0.0,
                             2.0,
                           ),
+                          spreadRadius: 0.0,
                         )
                       ],
                       borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 16.0, 16.0, 16.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Статистика',
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '5',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Сессий',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '2ч 30м',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Всего',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '30м',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    'Средняя',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ].divide(SizedBox(height: 16.0)),
+                      ),
                     ),
                   ),
                 ),
                 Align(
                   alignment: AlignmentDirectional(0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0x00FFFFFF),
-                          FlutterFlowTheme.of(context).secondaryBackground
-                        ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 80.0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0x00FFFFFF),
+                            FlutterFlowTheme.of(context).secondaryBackground
+                          ],
+                          stops: [0.0, 1.0],
+                          begin: AlignmentDirectional(0.0, -1.0),
+                          end: AlignmentDirectional(0, 1.0),
+                        ),
                       ),
                     ),
                   ),

@@ -45,7 +45,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         return;
       }
 
-      context.goNamedAuth(TimerWidget.routeName, context.mounted);
+      context.goNamedAuth(TimerPagreWidget.routeName, context.mounted);
     });
 
     _model.emailTextController ??= TextEditingController();
@@ -344,7 +344,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 }
 
                                 context.pushNamedAuth(
-                                    TimerWidget.routeName, context.mounted);
+                                    TimerPagreWidget.routeName,
+                                    context.mounted);
                               },
                               text: 'Авторизация',
                               options: FFButtonOptions(

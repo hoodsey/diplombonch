@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/backend/push_notifications/push_notifications_handler.dart'
-    show PushNotificationsHandler;
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -97,12 +95,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TimerWidget.routeName,
           path: TimerWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'timer')
-              : NavBarPage(
-                  initialPage: 'timer',
-                  page: TimerWidget(),
-                ),
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: TimerWidget(),
+          ),
         ),
         FFRoute(
           name: TasksWidget.routeName,
@@ -128,6 +124,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'analitiks')
               : AnalitiksWidget(),
+        ),
+        FFRoute(
+          name: TimerPagreWidget.routeName,
+          path: TimerPagreWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'timer_pagre')
+              : TimerPagreWidget(
+                  timer: params.getParam(
+                    'timer',
+                    ParamType.int,
+                  ),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -323,7 +331,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : PushNotificationsHandler(child: page);
+              : page;
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

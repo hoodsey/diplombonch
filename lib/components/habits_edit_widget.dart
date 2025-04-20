@@ -47,7 +47,6 @@ class _HabitsEditWidgetState extends State<HabitsEditWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
@@ -59,6 +58,15 @@ class _HabitsEditWidgetState extends State<HabitsEditWidget> {
             spreadRadius: 0.0,
           )
         ],
+        gradient: LinearGradient(
+          colors: [
+            FlutterFlowTheme.of(context).primary,
+            FlutterFlowTheme.of(context).secondary
+          ],
+          stops: [0.0, 1.0],
+          begin: AlignmentDirectional(0.0, -1.0),
+          end: AlignmentDirectional(0, 1.0),
+        ),
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Padding(

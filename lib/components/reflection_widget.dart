@@ -50,7 +50,6 @@ class _ReflectionWidgetState extends State<ReflectionWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
             BoxShadow(
               blurRadius: 4.0,
@@ -62,6 +61,15 @@ class _ReflectionWidgetState extends State<ReflectionWidget> {
               spreadRadius: 0.0,
             )
           ],
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primary,
+              FlutterFlowTheme.of(context).secondary
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
@@ -130,7 +138,8 @@ class _ReflectionWidgetState extends State<ReflectionWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
-                                  color: FlutterFlowTheme.of(context).info,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   letterSpacing: 0.0,
                                 ),
                             iconColor: FlutterFlowTheme.of(context).primaryText,
@@ -207,7 +216,8 @@ class _ReflectionWidgetState extends State<ReflectionWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
-                                  color: FlutterFlowTheme.of(context).info,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   letterSpacing: 0.0,
                                 ),
                             iconColor: FlutterFlowTheme.of(context).primaryText,
@@ -379,7 +389,8 @@ class _ReflectionWidgetState extends State<ReflectionWidget> {
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Inter Tight',
-                                    color: FlutterFlowTheme.of(context).info,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                     letterSpacing: 0.0,
                                   ),
                           elevation: 0.0,

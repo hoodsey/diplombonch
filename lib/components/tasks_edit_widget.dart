@@ -53,7 +53,6 @@ class _TasksEditWidgetState extends State<TasksEditWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
             BoxShadow(
               blurRadius: 4.0,
@@ -65,6 +64,15 @@ class _TasksEditWidgetState extends State<TasksEditWidget> {
               spreadRadius: 0.0,
             )
           ],
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primary,
+              FlutterFlowTheme.of(context).secondary
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Padding(

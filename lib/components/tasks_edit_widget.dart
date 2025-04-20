@@ -1,5 +1,4 @@
 import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -80,33 +79,26 @@ class _TasksEditWidgetState extends State<TasksEditWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Управление задачей',
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Inter Tight',
-                          letterSpacing: 0.0,
-                        ),
-                  ),
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30.0,
-                    borderWidth: 1.0,
-                    buttonSize: 40.0,
-                    fillColor: Color(0x33090F13),
-                    icon: Icon(
-                      Icons.close_rounded,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      size: 24.0,
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Text(
+                        'Управление задачей',
+                        textAlign: TextAlign.center,
+                        style:
+                            FlutterFlowTheme.of(context).headlineSmall.override(
+                                  fontFamily: 'Inter Tight',
+                                  letterSpacing: 0.0,
+                                ),
+                      ),
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -459,35 +451,6 @@ class _TasksEditWidgetState extends State<TasksEditWidget> {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Отмена',
-                          options: FFButtonOptions(
-                            width: 120.0,
-                            height: 50.0,
-                            padding: EdgeInsets.all(8.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Inter Tight',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                        ),
                         FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');

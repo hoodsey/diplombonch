@@ -92,9 +92,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -135,7 +137,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -176,7 +178,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(

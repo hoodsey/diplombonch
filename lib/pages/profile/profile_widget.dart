@@ -255,7 +255,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 safeSetState(
                                     () => _model.switchValue = newValue);
                                 if (newValue) {
-                                  setDarkModeSetting(context, ThemeMode.system);
+                                  setDarkModeSetting(context, ThemeMode.dark);
                                 }
                               },
                               activeColor: FlutterFlowTheme.of(context).primary,

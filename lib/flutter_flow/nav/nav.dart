@@ -154,6 +154,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   initialPage: 'tasksCopy',
                   page: TasksCopyWidget(),
                 ),
+        ),
+        FFRoute(
+          name: AnaliticsWidget.routeName,
+          path: AnaliticsWidget.routePath,
+          builder: (context, params) => AnaliticsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

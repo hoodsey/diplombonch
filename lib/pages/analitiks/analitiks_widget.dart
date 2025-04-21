@@ -910,14 +910,7 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: StreamBuilder<List<TaskRecord>>(
-                                stream: queryTaskRecord(
-                                  queryBuilder: (taskRecord) => taskRecord
-                                      .where(
-                                        'status',
-                                        isEqualTo: Stasus.success.name,
-                                      )
-                                      .orderBy('updated_time'),
-                                ),
+                                stream: queryTaskRecord(),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {

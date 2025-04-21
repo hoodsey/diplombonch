@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -116,7 +117,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ? NavBarPage(initialPage: 'analitiks')
               : NavBarPage(
                   initialPage: 'analitiks',
-                  page: AnalitiksWidget(),
+                  page: AnalitiksWidget(
+                    categoryChart: params.getParam<Category>(
+                      'categoryChart',
+                      ParamType.Enum,
+                    ),
+                  ),
                 ),
         ),
         FFRoute(
@@ -156,9 +162,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
         ),
         FFRoute(
-          name: AnaliticsWidget.routeName,
-          path: AnaliticsWidget.routePath,
-          builder: (context, params) => AnaliticsWidget(),
+          name: HabitsCopyWidget.routeName,
+          path: HabitsCopyWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'habitsCopy')
+              : HabitsCopyWidget(),
+        ),
+        FFRoute(
+          name: TiemrPageCopyWidget.routeName,
+          path: TiemrPageCopyWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'tiemr_pageCopy')
+              : NavBarPage(
+                  initialPage: 'tiemr_pageCopy',
+                  page: TiemrPageCopyWidget(
+                    date: params.getParam(
+                      'date',
+                      ParamType.DateTime,
+                    ),
+                    timerValue: params.getParam(
+                      'timerValue',
+                      ParamType.int,
+                    ),
+                  ),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

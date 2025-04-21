@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'analitiks_model.dart';
@@ -19,7 +18,12 @@ export 'analitiks_model.dart';
 /// ТАЙМЕРА. И ДАЛЕЕ РЕКОМЕНДАЦИИ. КОГДА БЫЛ БОЛЕЕ ПРОДУКТИВЕН. КАКИЕ ФАКТОРЫ
 /// ЧАЩЕ ВСЕГО ОТВЛЕКАЛИ.
 class AnalitiksWidget extends StatefulWidget {
-  const AnalitiksWidget({super.key});
+  const AnalitiksWidget({
+    super.key,
+    this.categoryChart,
+  });
+
+  final Category? categoryChart;
 
   static String routeName = 'analitiks';
   static String routePath = '/analitiks';
@@ -679,13 +683,8 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                   .primaryBackground,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: FutureBuilder<List<TaskRecord>>(
-                              future: queryTaskRecordOnce(
-                                queryBuilder: (taskRecord) => taskRecord.where(
-                                  'status',
-                                  isEqualTo: Stasus.success.name,
-                                ),
-                              ),
+                            child: StreamBuilder<List<AnalyticsRecord>>(
+                              stream: queryAnalyticsRecord(),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -702,7 +701,7 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                     ),
                                   );
                                 }
-                                List<TaskRecord> chartTaskRecordList =
+                                List<AnalyticsRecord> chartAnalyticsRecordList =
                                     snapshot.data!;
 
                                 return Container(
@@ -711,18 +710,16 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                   child: FlutterFlowBarChart(
                                     barData: [
                                       FFBarChartData(
-                                        yData: List.generate(
-                                            random_data.randomInteger(5, 5),
-                                            (index) => random_data.randomName(
-                                                true, true)),
+                                        yData: chartAnalyticsRecordList
+                                            .map((d) => d.completedTasks)
+                                            .toList(),
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                       )
                                     ],
-                                    xLabels: List.generate(
-                                        random_data.randomInteger(5, 5),
-                                        (index) =>
-                                            random_data.randomName(true, true)),
+                                    xLabels: chartAnalyticsRecordList
+                                        .map((d) => d.createDate)
+                                        .toList(),
                                     barWidth: 20.0,
                                     barBorderRadius: BorderRadius.circular(8.0),
                                     groupSpace: 8.0,
@@ -938,7 +935,7 @@ class _AnalitiksWidgetState extends State<AnalitiksWidget> {
                                       data: [
                                         FFLineChartData(
                                           xData: chartTaskRecordList
-                                              .map((d) => d.taskid)
+                                              .map((d) => d.createdTime)
                                               .toList(),
                                           yData: chartTaskRecordList
                                               .map((d) => d.updatedTime)

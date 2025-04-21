@@ -152,6 +152,8 @@ class _NavBarPageState extends State<NavBarPage> {
       'tiemr_page': TiemrPageWidget(),
       'profile': ProfileWidget(),
       'tasksCopy': TasksCopyWidget(),
+      'habitsCopy': HabitsCopyWidget(),
+      'tiemr_pageCopy': TiemrPageCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -210,6 +212,20 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.task_alt_rounded,
             ),
             label: 'tasks',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.hub,
+            ),
+            label: '',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.timer_sharp,
+            ),
+            label: 'timer',
             tooltip: '',
           )
         ],

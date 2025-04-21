@@ -200,7 +200,7 @@ class _HabitsWidgetState extends State<HabitsWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 4.0, 0.0, 0.0),
                                               child: Text(
-                                                'Каждый день в 7:00',
+                                                '',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodySmall
